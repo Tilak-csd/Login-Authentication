@@ -1,4 +1,39 @@
-const {LoginService} = require('../services/auth.services')
+const {RegisterService, LoginService} = require('../services/auth.services')
+
+
+const register = async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+
+        // 1. Basic validation
+        if (!username || !email || !password) {
+            return res.status(400).json({ 
+                message: "Username, email, and password are required." 
+            });
+        }
+
+        // 2. Call service to handle DB logic and hashing
+        const newUser = await RegisterService({ username, email, password });
+
+        // 3. Return success (excluding the password)
+        res.status(201).json({
+            message: "User registered successfully",
+            user: {
+                id: newUser.id,
+                username: newUser.username,
+                email: newUser.email
+            }
+        });
+
+    } catch (error) {
+        console.log(error);
+        
+        // Handle unique constraint errors (e.g., email already taken)
+        res.status(400).json({ 
+            message: error.message || "Registration failed" 
+        });
+    }
+};
 
 
 const login = async (req, res)=>{
@@ -24,4 +59,4 @@ const login = async (req, res)=>{
     }
 }
 
-module.exports = {login}
+module.exports = {register, login}
