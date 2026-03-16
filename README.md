@@ -129,5 +129,3 @@ npm run dev
 
 ## 📝 License
 This project is open-source and available under the MIT License.
-
-**Since you are using NeonDB without an ORM, would you like me to provide a high-performance `db.js` connection utility using the `pg` pool?**
