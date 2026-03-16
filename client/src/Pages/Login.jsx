@@ -31,7 +31,7 @@ export default function Login() {
 
             // 4. Redirect to Dashboard/Home
             console.log("Login Successful", user);
-            navigate('/home');
+            navigate('/dasboard');
 
         } catch (err) {
             // 5. Advanced Error Handling
